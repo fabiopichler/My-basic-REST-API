@@ -1,14 +1,11 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
-    "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "name": "my-basic-rest-api",
+    "description": "A basic REST API with PHP, PDO (MySQL), and Slim Framework",
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "name": "Fábio Pichler",
+            "homepage": "https://fabiopichler.net/"
         }
     ],
     "require": {
@@ -18,7 +15,6 @@
         "respect/validation": "^1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": ">=4.8 < 6.0"
     },
     "autoload-dev": {
         "psr-4": {
@@ -29,8 +25,7 @@
         "process-timeout" : 0
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t public",
-        "test": "phpunit"
+        "start": "php -S localhost:8080 -t public"
     }
 
 }
