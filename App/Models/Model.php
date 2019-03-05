@@ -31,7 +31,7 @@ abstract class Model {
 
     protected function setData($data) {
         if (empty($data) || !is_array($data))
-            throw new \Exception('Data is empty');
+            throw new \Exception('Not Found', 404);
 
         $this->data = $data;
     }

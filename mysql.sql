@@ -13,7 +13,7 @@ CREATE TABLE `users` (
   `avatar` varchar(100) COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
 
-CREATE TABLE `posts` (
+CREATE TABLE `pages` (
   `id` int UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int UNSIGNED NOT NULL,
   `type` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'post',

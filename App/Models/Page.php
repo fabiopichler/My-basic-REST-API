@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Model;
 
-class Post extends Model {
+class Page extends Model {
 
     private $querySelect = '
         SELECT
@@ -22,54 +22,41 @@ class Post extends Model {
             u.website AS user_website,
             u.avatar AS user_avatar
         FROM
-            posts AS p
+            pages AS p
             LEFT JOIN users AS u ON (u.id = p.user_id)
         ';
 
     public function index() {
-        $stmt = $this->paginate($this->querySelect, 'p.date_posted DESC');
-        $stmt->execute();
-
-        $this->setData($stmt->fetchAll(\PDO::FETCH_ASSOC));
-    }
-
-    public function indexByType() {
         $query = $this->querySelect;
         $query .= '
             WHERE
                 p.type = :type
         ';
 
+        if ($this->user_id)
+            $query .= 'AND user_id = :user_id';
+
         $stmt = $this->paginate($query, 'p.date_posted DESC');
         $stmt->bindValue(':type', $this->type);
-        $stmt->execute();
 
+        if ($this->user_id)
+            $stmt->bindValue(':user_id', $this->user_id);
+
+        $stmt->execute();
         $this->setData($stmt->fetchAll(\PDO::FETCH_ASSOC));
     }
 
-    public function show() {
+    public function show($col) {
         $query = $this->querySelect;
-        $query .= '
+        $query .= "
             WHERE
-                p.id = :id
-        ';
+                p.type = :type AND
+                p.$col = :$col
+        ";
 
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':id', $this->id);
-        $stmt->execute();
-
-        $this->setData($stmt->fetch(\PDO::FETCH_ASSOC));
-    }
-
-    public function showBySlug() {
-        $query = $this->querySelect;
-        $query .= '
-            WHERE
-                p.slug = :slug
-        ';
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':slug', $this->slug);
+        $stmt->bindValue(':type', $this->type);
+        $stmt->bindValue(":$col", $this->$col);
         $stmt->execute();
 
         $this->setData($stmt->fetch(\PDO::FETCH_ASSOC));
