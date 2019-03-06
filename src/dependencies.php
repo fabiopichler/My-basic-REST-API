@@ -32,5 +32,7 @@ $container['db'] = function ($c) {
         return $db;
 
     } catch (PDOException $e) {
+        http_response_code(500);
+        exit('<h1>Database connection error</h1>');
     }
 };
